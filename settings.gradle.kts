@@ -26,3 +26,7 @@ rootProject.name = "WeatherForecast"
 include(":app")
 include(":data-core-network")
 include(":di")
+include(":feature-weather")
+include(":feature-weather:ui")
+include(":feature-weather:domain")
+include(":feature-weather:data")
