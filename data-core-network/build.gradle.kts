@@ -38,8 +38,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.retrofit)
-    implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.retrofit.adapters.result)
+    implementation(libs.converter.kotlinx.serialization)
 
     implementation(libs.koin.android)
     testImplementation(libs.junit)

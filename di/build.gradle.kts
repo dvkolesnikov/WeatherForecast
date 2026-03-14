@@ -32,6 +32,8 @@ android {
 
 dependencies {
     implementation(project(":data-core-network"))
+    implementation(project(":feature-weather:domain"))
+    implementation(project(":feature-weather:data"))
 
     implementation(libs.koin.android)
 }
