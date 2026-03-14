@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -34,7 +35,11 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
 
+    implementation(libs.kotlinx.serialization.json)
+
     implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
+
 
     implementation(libs.koin.android)
     testImplementation(libs.junit)
