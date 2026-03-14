@@ -39,7 +39,7 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization.converter)
-
+    implementation(libs.retrofit.adapters.result)
 
     implementation(libs.koin.android)
     testImplementation(libs.junit)

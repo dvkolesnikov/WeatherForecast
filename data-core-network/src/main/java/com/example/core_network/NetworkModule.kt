@@ -1,6 +1,7 @@
 package com.example.core_network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.skydoves.retrofit.adapters.result.ResultCallAdapterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -26,4 +27,5 @@ private fun provideRetrofit(client: OkHttpClient, networkJson: Json) = Retrofit.
     .client(client)
     .baseUrl("https://api.openweathermap.org") // TODO move to app config
     .addConverterFactory(networkJson.asConverterFactory("application/json".toMediaType()))
+    .addCallAdapterFactory(ResultCallAdapterFactory.create())
     .build()
