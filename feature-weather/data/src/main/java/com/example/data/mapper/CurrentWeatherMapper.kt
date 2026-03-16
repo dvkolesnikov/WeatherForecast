@@ -1,17 +1,17 @@
 package com.example.data.mapper
 
-import com.example.data.dto.WeatherResponse
+import com.example.data.dto.CurrentWeatherDto
 import com.example.domain.model.CurrentWeather
 
-fun WeatherResponse.mapToCurrentWeather(): CurrentWeather {
+fun CurrentWeatherDto.mapToDomain(): CurrentWeather {
     return CurrentWeather(
-        temperature = currentWeather.temperature,
-        timeStamp = currentWeather.currentTimeStamp,
-        sunriseTimeStamp = currentWeather.sunriseTimeStamp,
-        sunsetTimeStamp = currentWeather.sunsetTimeStamp,
-        temperatureFeelsLike = currentWeather.temperatureFeelsLike,
-        pressure = currentWeather.pressure,
-        humidity = currentWeather.humidity,
-        windSpeed = currentWeather.windSpeed,
+        temperature = temperature,
+        timeStamp = currentTimeStamp,
+        sunriseTimeStamp = sunriseTimeStamp,
+        sunsetTimeStamp = sunsetTimeStamp,
+        temperatureFeelsLike = temperatureFeelsLike,
+        pressure = pressure,
+        humidity = humidity,
+        windSpeed = windSpeed,
     )
 }

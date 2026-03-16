@@ -8,6 +8,6 @@ sealed class WeatherScreenState {
     data class Error(val message: String) : WeatherScreenState()
 
     data class Success(
-        val currentWeather: CurrentWeather,
+        val currentWeather: CurrentWeather?,
     ) : WeatherScreenState()
 }

@@ -27,7 +27,7 @@ class WeatherViewModel(
             ).fold( // TODO get rid of hardcoded coordinates
                 onSuccess = {
                     _screenState.value = WeatherScreenState.Success(
-                        currentWeather = it
+                        currentWeather = it.currentWeather,
                     )
                 },
                 onFailure = {

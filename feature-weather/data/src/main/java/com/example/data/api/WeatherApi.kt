@@ -12,7 +12,7 @@ interface WeatherApi {
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
         @Query("lang") lang: String = Locale.getDefault().language,
-        @Query("exclude") exclusions: String = "minutely,hourly,daily",
+        @Query("exclude") exclusions: String = "minutely",
         @Query("units") units: String = "metric",
     ): Result<WeatherResponse>
 }

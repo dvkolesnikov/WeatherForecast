@@ -84,8 +84,10 @@ private fun SuccessContent(
     modifier: Modifier = Modifier,
     state: WeatherScreenState.Success
 ) {
-    CurrentWeatherWidget(
-        modifier = modifier,
-        currentWeather = state.currentWeather,
-    )
+    state.currentWeather?.let {
+        CurrentWeatherWidget(
+            modifier = modifier,
+            currentWeather = state.currentWeather,
+        )
+    }
 }

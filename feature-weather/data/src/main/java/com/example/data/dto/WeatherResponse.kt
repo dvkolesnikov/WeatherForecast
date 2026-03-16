@@ -14,5 +14,7 @@ data class WeatherResponse(
     @SerialName("timezone_offset")
     val utcOffsetSeconds: Int,
     @SerialName("current")
-    val currentWeather: CurrentWeatherDto,
+    val currentWeather: CurrentWeatherDto?,
+    @SerialName("hourly")
+    val hourly: List<HourlyWeatherDto>?,
 )

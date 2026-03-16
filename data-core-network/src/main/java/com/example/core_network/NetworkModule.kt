@@ -12,7 +12,8 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 
 val coreNetworkModule = module {
     single { provideOkHttpClient() }
-    single { provideRetrofit(client = get()) }
+    factory { provideJson() }
+    single { provideRetrofit(client = get(), json = get()) }
 }
 
 private fun provideOkHttpClient() = OkHttpClient.Builder()
@@ -23,9 +24,14 @@ private fun provideOkHttpClient() = OkHttpClient.Builder()
     })
     .build()
 
-private fun provideRetrofit(client: OkHttpClient) = Retrofit.Builder()
+private fun provideJson() = Json {
+    explicitNulls = false
+    ignoreUnknownKeys = true
+}
+
+private fun provideRetrofit(client: OkHttpClient, json: Json) = Retrofit.Builder()
     .client(client)
     .baseUrl("https://api.openweathermap.org") // TODO move to app config
-    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+    .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     .addCallAdapterFactory(ResultCallAdapterFactory.create())
     .build()
