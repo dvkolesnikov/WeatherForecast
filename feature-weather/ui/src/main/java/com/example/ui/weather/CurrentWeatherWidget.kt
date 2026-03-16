@@ -17,22 +17,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.domain.model.CurrentWeather
 import com.example.presentation_core.ext.toDateTime
 import com.example.presentation_core.ext.toTimeHHmm
 import com.example.presentation_core.theme.WeatherForecastTheme
 import com.example.ui.R
+import com.example.ui.weather.common.TemperatureInfo
 
 @Composable
 fun CurrentWeatherWidget(
     modifier: Modifier = Modifier,
-    currentWeather: CurrentWeather
+    currentWeather: CurrentWeather,
+    temperatureUnit: String,
 ) {
     Column(modifier = modifier) {
         CurrentTimeInfo(timeStamp = currentWeather.timeStamp)
@@ -45,7 +44,7 @@ fun CurrentWeatherWidget(
             modifier = Modifier.fillMaxWidth(),
             temperature = currentWeather.temperature,
             temperatureFeeling = currentWeather.temperatureFeelsLike,
-            units = currentWeather.temperatureUnit,
+            units = temperatureUnit,
         )
     }
 }
@@ -116,39 +115,6 @@ private fun CurrentTimeInfo(
 }
 
 @Composable
-private fun TemperatureInfo(
-    modifier: Modifier = Modifier,
-    temperature: Float,
-    temperatureFeeling: Float,
-    units: String,
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = stringResource(R.string.weather_label_temperature, temperature, units),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = stringResource(
-                R.string.weather_label_temperature_feels_like,
-                temperatureFeeling,
-                units
-            ),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.secondary,
-        )
-    }
-
-}
-
-@Composable
 @Preview
 private fun CurrentWeatherWidgetPreview() {
     WeatherForecastTheme {
@@ -162,7 +128,8 @@ private fun CurrentWeatherWidgetPreview() {
                 pressure = 750,
                 humidity = 45,
                 windSpeed = 3.4f,
-            )
+            ),
+            temperatureUnit = "°C",
         )
     }
 }

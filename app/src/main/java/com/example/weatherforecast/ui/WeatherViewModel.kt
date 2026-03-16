@@ -28,6 +28,8 @@ class WeatherViewModel(
                 onSuccess = {
                     _screenState.value = WeatherScreenState.Success(
                         currentWeather = it.currentWeather,
+                        temperatureUnit = it.temperatureUnit,
+                        hourlyWeather = it.hourlyWeather,
                     )
                 },
                 onFailure = {

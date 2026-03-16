@@ -12,5 +12,12 @@ class GetWeatherUseCase(
         longitude: Double,
     ): Result<Weather> {
         return weatherRepository.loadWeather(latitude = latitude, longitude = longitude)
+            .map { weather ->
+                weather.copy(
+                    hourlyWeather = weather.hourlyWeather
+                        .take(24)
+                        .sortedBy { it.timeStamp }
+                )
+            }
     }
 }

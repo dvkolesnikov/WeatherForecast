@@ -9,5 +9,4 @@ data class CurrentWeather(
     val pressure: Int,
     val humidity: Int,
     val windSpeed: Float,
-    val temperatureUnit: String = "°C" // TODO it will be probably changed later,
 )
