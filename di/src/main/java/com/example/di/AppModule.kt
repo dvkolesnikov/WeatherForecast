@@ -1,10 +1,15 @@
 package com.example.di
 
 import com.example.core_network.coreNetworkModule
+import com.example.data.featureWeatherDataModule
+import com.example.domain.featureWeatherDomainModule
 import org.koin.dsl.module
 
 val appModule = module {
     includes(
         coreNetworkModule,
+
+        featureWeatherDomainModule,
+        featureWeatherDataModule,
     )
 }

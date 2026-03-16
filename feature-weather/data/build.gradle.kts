@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.example.di"
+    namespace = "com.example.data"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -31,9 +32,12 @@ android {
 }
 
 dependencies {
-    implementation(project(":data-core-network"))
     implementation(project(":feature-weather:domain"))
-    implementation(project(":feature-weather:data"))
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit)
 
     implementation(libs.koin.android)
+
+    testImplementation(libs.junit)
 }

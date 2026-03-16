@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.di"
+    namespace = "com.example.feature_weather"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -31,9 +31,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":data-core-network"))
-    implementation(project(":feature-weather:domain"))
-    implementation(project(":feature-weather:data"))
-
-    implementation(libs.koin.android)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
 }
