@@ -15,7 +15,10 @@ class WeatherApp : Application() {
     private fun initKoin() {
         startKoin {
             androidContext(this@WeatherApp)
-            modules(appModule)
+            modules(
+                appModule,
+                viewModelModule
+            )
         }
     }
 }

@@ -9,7 +9,7 @@ class WeatherRepositoryImpl(
     private val weatherApi: WeatherApi,
 ) : WeatherRepository {
 
-    override suspend fun loadCurrentWeather(
+    override suspend fun loadWeather(
         latitude: Double,
         longitude: Double,
     ): Result<CurrentWeather> {

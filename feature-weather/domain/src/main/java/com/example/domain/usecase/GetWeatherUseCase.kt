@@ -3,7 +3,7 @@ package com.example.domain.usecase
 import com.example.domain.model.CurrentWeather
 import com.example.domain.repository.WeatherRepository
 
-class GetCurrentWeatherUseCase(
+class GetWeatherUseCase(
     private val weatherRepository: WeatherRepository,
 ) {
 
@@ -11,6 +11,6 @@ class GetCurrentWeatherUseCase(
         latitude: Double,
         longitude: Double,
     ): Result<CurrentWeather> {
-        return weatherRepository.loadCurrentWeather(latitude = latitude, longitude = longitude)
+        return weatherRepository.loadWeather(latitude = latitude, longitude = longitude)
     }
 }

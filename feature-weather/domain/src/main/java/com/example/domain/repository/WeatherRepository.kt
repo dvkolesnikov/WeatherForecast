@@ -4,5 +4,5 @@ import com.example.domain.model.CurrentWeather
 
 interface WeatherRepository {
 
-    suspend fun loadCurrentWeather(latitude: Double, longitude: Double): Result<CurrentWeather>
+    suspend fun loadWeather(latitude: Double, longitude: Double): Result<CurrentWeather>
 }

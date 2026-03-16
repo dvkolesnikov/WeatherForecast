@@ -1,8 +1,8 @@
 package com.example.domain
 
-import com.example.domain.usecase.GetCurrentWeatherUseCase
+import com.example.domain.usecase.GetWeatherUseCase
 import org.koin.dsl.module
 
 val featureWeatherDomainModule = module {
-    factory { GetCurrentWeatherUseCase(weatherRepository = get()) }
+    factory { GetWeatherUseCase(weatherRepository = get()) }
 }
