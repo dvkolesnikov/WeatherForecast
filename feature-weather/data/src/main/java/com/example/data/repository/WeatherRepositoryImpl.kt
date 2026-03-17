@@ -1,8 +1,8 @@
 package com.example.data.repository
 
 import com.example.data.api.WeatherApi
-import com.example.data.mapper.mapToCurrentWeather
-import com.example.domain.model.CurrentWeather
+import com.example.data.mapper.mapToDomain
+import com.example.domain.model.Weather
 import com.example.domain.repository.WeatherRepository
 
 class WeatherRepositoryImpl(
@@ -12,10 +12,10 @@ class WeatherRepositoryImpl(
     override suspend fun loadWeather(
         latitude: Double,
         longitude: Double,
-    ): Result<CurrentWeather> {
+    ): Result<Weather> {
         return weatherApi.loadWeather(
             latitude = latitude,
             longitude = longitude,
-        ).map { it.mapToCurrentWeather() }
+        ).map { it.mapToDomain() }
     }
 }
