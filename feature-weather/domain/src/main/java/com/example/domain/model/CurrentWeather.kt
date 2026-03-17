@@ -9,4 +9,5 @@ data class CurrentWeather(
     val pressure: Int,
     val humidity: Int,
     val windSpeed: Float,
+    val weatherIconUrls: List<String>,
 )

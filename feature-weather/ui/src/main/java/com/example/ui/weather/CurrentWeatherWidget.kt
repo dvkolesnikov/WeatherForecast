@@ -128,6 +128,7 @@ private fun CurrentWeatherWidgetPreview() {
                 pressure = 750,
                 humidity = 45,
                 windSpeed = 3.4f,
+                weatherIconUrls = emptyList(),
             ),
             temperatureUnit = "°C",
         )

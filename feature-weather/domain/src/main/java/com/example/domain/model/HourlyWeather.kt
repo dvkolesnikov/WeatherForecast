@@ -14,4 +14,5 @@ data class HourlyWeather(
     val windDirection: Int,
     val windGustsSpeed: Float,
     val precipitationProbability: Float,
+    val weatherIconUrls: List<String>,
 )
