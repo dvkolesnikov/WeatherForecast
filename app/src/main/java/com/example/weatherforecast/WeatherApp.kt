@@ -1,7 +1,7 @@
 package com.example.weatherforecast
 
 import android.app.Application
-import com.example.di.appModule
+import com.example.di.commonModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -17,6 +17,7 @@ class WeatherApp : Application() {
             androidContext(this@WeatherApp)
             modules(
                 appModule,
+                commonModule,
                 viewModelModule
             )
         }

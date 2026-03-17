@@ -19,6 +19,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_BASE_URL", "\"https://api.openweathermap.org\"")
+        buildConfigField("String", "IMAGES_BASE_URL", "\"https://openweathermap.org\"")
     }
 
     buildTypes {
@@ -36,6 +39,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

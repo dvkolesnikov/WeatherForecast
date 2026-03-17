@@ -5,7 +5,7 @@ import com.example.data.featureWeatherDataModule
 import com.example.domain.featureWeatherDomainModule
 import org.koin.dsl.module
 
-val appModule = module {
+val commonModule = module {
     includes(
         coreNetworkModule,
 
