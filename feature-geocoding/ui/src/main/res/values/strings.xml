@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="geocoding_search_label">City</string>
+    <string name="geocoding_search_placeholder">Type a city name</string>
+    <string name="geocoding_search_empty">Start typing to search for a city</string>
+    <string name="geocoding_search_no_results">No cities found</string>
+</resources>
