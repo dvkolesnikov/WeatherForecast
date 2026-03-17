@@ -15,6 +15,11 @@ val appModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { WeatherViewModel(getWeatherUseCase = get()) }
+    viewModel {
+        WeatherViewModel(
+            getWeatherUseCase = get(),
+            searchCityUseCase = get(),
+        )
+    }
 }
 

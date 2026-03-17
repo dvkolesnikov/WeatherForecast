@@ -1,0 +1,13 @@
+---
+description: Gradle modules and dependency rules for WeatherForecast
+globs: **/*.gradle.kts, **/libs.versions.toml
+alwaysApply: false
+---
+
+# Gradle and module conventions
+
+- **Version catalog**: All dependency and plugin versions live in `gradle/libs.versions.toml`. Add new libs/versions there; use `libs.xxx` and `alias(libs.plugins.xxx)` in `build.gradle.kts`.
+- **Module deps**: app → di, presentation-core, domain-core, feature-weather:ui, feature-weather:domain. feature-weather:ui → presentation-core, feature-weather:domain (never feature-weather:data). feature-weather:data → data-core, domain-core, feature-weather:domain. data-core → domain-core.
+- **Plugins**: Application only in `app`; library elsewhere. Use `kotlin-compose` for Compose modules, `kotlin-serialization` for JSON (data-core, feature-weather:data), `jetbrains-kotlin-jvm` for pure Kotlin (domain-core, feature-weather:domain).
+- **Config**: compileSdk follows existing pattern (e.g. release(36)); minSdk 24, JVM 11. Namespace per module (e.g. `com.example.core_network`, `com.example.ui`).
+- **New feature**: Add `include(":feature-<name>")` and `include(":feature-<name>:domain")` (and data/ui) in `settings.gradle.kts`; add feature modules to `di` commonModule.

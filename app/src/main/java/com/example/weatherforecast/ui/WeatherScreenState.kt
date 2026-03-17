@@ -4,15 +4,23 @@ import com.example.domain.weather.model.CurrentWeather
 import com.example.domain.weather.model.DailyWeather
 import com.example.domain.weather.model.HourlyWeather
 
-sealed class WeatherScreenState {
-    data object Loading : WeatherScreenState()
+sealed class WeatherScreenState(
+    open val citySearchState: CitySearchState,
+) {
+    data class Loading(
+        override val citySearchState: CitySearchState = CitySearchState(),
+    ) : WeatherScreenState(citySearchState)
 
-    data class Error(val message: String) : WeatherScreenState()
+    data class Error(
+        val message: String,
+        override val citySearchState: CitySearchState = CitySearchState(),
+    ) : WeatherScreenState(citySearchState)
 
     data class Success(
         val currentWeather: CurrentWeather?,
         val hourlyWeather: List<HourlyWeather>,
         val dailyWeather: List<DailyWeather>,
         val temperatureUnit: String,
-    ) : WeatherScreenState()
+        override val citySearchState: CitySearchState = CitySearchState(),
+    ) : WeatherScreenState(citySearchState)
 }

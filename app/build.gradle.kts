@@ -47,6 +47,8 @@ dependencies {
     implementation(project(":di"))
     implementation(project(":presentation-core"))
     implementation(project(":domain-core"))
+    implementation(project(":feature-geocoding:ui"))
+    implementation(project(":feature-geocoding:domain"))
     implementation(project(":feature-weather:ui"))
     implementation(project(":feature-weather:domain"))
 

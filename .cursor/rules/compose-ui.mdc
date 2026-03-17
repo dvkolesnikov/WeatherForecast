@@ -1,0 +1,36 @@
+---
+description: Jetpack Compose and UI patterns for WeatherForecast
+globs: **/ui/**/*.kt, **/presentation_core/**/*.kt, **/weatherforecast/**/*.kt
+alwaysApply: false
+---
+
+# Compose and UI conventions
+
+- **Theme**: Use `WeatherForecastTheme` from `presentation-core` for all composables and `@Preview`. Use `MaterialTheme.colorScheme` and `MaterialTheme.typography` (no hardcoded colors/fonts in feature UI).
+- **Screens**: Top-level composable = screen (e.g. `WeatherScreen`); first param `modifier: Modifier = Modifier`, then `viewModel: XxxViewModel = koinViewModel()`. Use `collectAsState()` on ViewModel state and pass to private content composables.
+- **State**: ViewModel exposes `StateFlow<XxxScreenState>`; screen state is a sealed class (Loading / Error / Success). Keep UI stateless; state flows down from ViewModel.
+- **Widgets**: Reusable composables take `modifier` first, then data. Use `internal` or `private` for helpers inside the same file.
+- **Previews**: Always wrap in `WeatherForecastTheme { ... }` so theme is applied.
+- **Resources**: Use `stringResource(R.string.xxx)` and `painterResource(R.drawable.xxx)` from the module that owns the resource.
+
+## Example – screen structure
+
+```kotlin
+@Composable
+fun WeatherScreen(
+    modifier: Modifier = Modifier,
+    viewModel: WeatherViewModel = koinViewModel(),
+) {
+    val screenState by viewModel.screenState.collectAsState()
+    WeatherScreenContent(modifier = modifier, screenState = screenState)
+}
+
+@Composable
+private fun WeatherScreenContent(modifier: Modifier, screenState: WeatherScreenState) {
+    when (screenState) {
+        is WeatherScreenState.Error -> ErrorContent(...)
+        WeatherScreenState.Loading -> LoadingContent(...)
+        is WeatherScreenState.Success -> SuccessContent(...)
+    }
+}
+```

@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.example.di"
+    namespace = "com.example.data.geocoding"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -32,10 +33,13 @@ android {
 
 dependencies {
     implementation(project(":data-core"))
+    implementation(project(":domain-core"))
     implementation(project(":feature-geocoding:domain"))
-    implementation(project(":feature-geocoding:data"))
-    implementation(project(":feature-weather:domain"))
-    implementation(project(":feature-weather:data"))
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit)
 
     implementation(libs.koin.android)
+
+    testImplementation(libs.junit)
 }

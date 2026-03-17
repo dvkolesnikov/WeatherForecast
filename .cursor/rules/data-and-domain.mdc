@@ -1,0 +1,22 @@
+---
+description: Data and domain layer patterns (DTOs, mappers, repository, use case)
+globs: **/data/**/*.kt, **/domain/**/*.kt, **/core_network/**/*.kt, **/domain_core/**/*.kt
+alwaysApply: false
+---
+
+# Data and domain layer conventions
+
+- **Domain**: Models as immutable `data class` in `domain/model`. Repository **interface** in `domain/repository` (e.g. `suspend fun loadWeather(...): Result<Weather>`). UseCase in `domain/usecase` with `operator fun invoke(...)` returning `Result<T>`; single responsibility, depends only on repository.
+- **Data**: API (Retrofit) in `data/api`; suspend functions return `Result<Dto>`. DTOs in `data/dto` with `@Serializable` and `@SerialName`. Mappers in `data/mapper` as extension functions `XxxDto.mapToDomain(...)` returning domain type; root DTO composes smaller mappers. Repository **impl** in `data/repository` named `XxxRepositoryImpl`, implements domain interface; calls API then maps with `mapToDomain(...)` and returns `Result<Domain>`.
+- **data-core**: Provides OkHttp (interceptors), Retrofit (baseUrl from AppConfig), JSON converter, Result call adapter. No feature DTOs; only shared network config.
+
+## Example – mapper
+
+```kotlin
+// data/mapper/WeatherResponseMapper.kt
+fun WeatherResponse.mapToDomain(baseUrl: String) = Weather(
+    currentWeather = currentWeather?.mapToDomain(baseUrl),
+    hourlyWeather = hourly?.map { it.mapToDomain(baseUrl) } ?: emptyList(),
+    dailyWeather = daily?.map { it.mapToDomain(baseUrl) } ?: emptyList()
+)
+```
