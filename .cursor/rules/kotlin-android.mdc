@@ -1,0 +1,27 @@
+---
+description: Kotlin and Android conventions for WeatherForecast
+globs: **/*.kt
+alwaysApply: false
+---
+
+# Kotlin and Android conventions
+
+- **Style**: Official Kotlin code style (`kotlin.code.style=official`). Use named arguments for multi-param calls.
+- **State**: Use sealed classes for screen state: `data object Loading`, `data class Error(val message: String)`, `data class Success(...)`.
+- **Errors**: Repositories and use cases return `Result<T>`; ViewModels use `.fold(onSuccess = ..., onFailure = ...)`.
+- **Coroutines**: ViewModels use `viewModelScope.launch`; repository/use case use `suspend` and return `Result` or throw only when appropriate.
+- **DI (Koin)**: Prefer `single` for app-scoped (Retrofit, Repository), `factory` for per-use (UseCase, API from Retrofit). ViewModels: `viewModel { XxxViewModel(get()) }`.
+- **Namespace**: One per module in `build.gradle.kts` (e.g. `com.example.core_network`, `com.example.ui`). Match package structure.
+- **Versions**: Add dependencies and versions in `gradle/libs.versions.toml`; reference as `libs.xxx` in `build.gradle.kts`. MinSdk 24, JVM 11.
+
+## Example – ViewModel state
+
+```kotlin
+// ✅ GOOD
+private val _screenState = MutableStateFlow<WeatherScreenState>(WeatherScreenState.Loading)
+val screenState = _screenState.asStateFlow()
+getWeatherUseCase(...).fold(
+    onSuccess = { _screenState.value = WeatherScreenState.Success(...) },
+    onFailure = { _screenState.value = WeatherScreenState.Error(it.message ?: it.toString()) }
+)
+```

@@ -1,0 +1,33 @@
+---
+description: WeatherForecast project structure, architecture, and where code lives
+alwaysApply: true
+---
+
+# WeatherForecast – Project overview
+
+- **Stack**: Android (Kotlin 2.x), Jetpack Compose, Koin, Retrofit, Clean Architecture, feature modules.
+- **Docs**: See `docs/ARCHITECTURE.md`, `docs/STYLE_AND_CONVENTIONS.md`, `docs/TECHNOLOGIES.md`.
+
+## Module layout
+
+- **app**: Entry point, `WeatherForecastTheme`, ViewModels, screen state. Depends on di, presentation-core, domain-core, feature-weather:ui/domain.
+- **di**: Koin `commonModule` (aggregates data-core + feature domain/data). No business logic.
+- **data-core**: OkHttp, Retrofit, JSON (kotlinx.serialization), Result adapter. Namespace `com.example.core_network`.
+- **domain-core**: Shared domain (e.g. `AppConfig`). Pure JVM.
+- **presentation-core**: Theme (`WeatherForecastTheme`, Color, Typography), UI extensions (e.g. timestamp formatting).
+- **feature-weather**: `domain` (models, repository interface, use cases), `data` (API, DTOs, mappers, repository impl), `ui` (Compose widgets/screens).
+
+## Dependency rules
+
+- Domain and presentation-core do **not** depend on Android UI or data.
+- Feature **ui** depends only on presentation-core and feature **domain** (never on feature data).
+- Feature **data** depends on data-core, domain-core, feature domain.
+- App/DI wire ViewModels and include feature UI; app holds screen-level state when it orchestrates a feature.
+
+## Adding code
+
+- New **feature**: add `feature-<name>/domain`, `feature-<name>/data`, `feature-<name>/ui`; register in `settings.gradle.kts` and in `di` commonModule.
+- **Repository**: interface in feature `domain/repository`; impl in feature `data/repository` with `Impl` suffix.
+- **UseCase**: in feature `domain/usecase`; `operator fun invoke(...)` returning `Result<T>`.
+- **Mappers**: in feature `data/mapper`; extensions `Dto.mapToDomain(...)`.
+- **Theme/typography**: only in `presentation-core`; use `MaterialTheme` in composables.
