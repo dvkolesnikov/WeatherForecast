@@ -16,6 +16,9 @@ class GetWeatherUseCase(
                 weather.copy(
                     hourlyWeather = weather.hourlyWeather
                         .take(24)
+                        .sortedBy { it.timeStamp },
+                    dailyWeather = weather.dailyWeather
+                        .take(7)
                         .sortedBy { it.timeStamp }
                 )
             }

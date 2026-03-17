@@ -30,6 +30,7 @@ class WeatherViewModel(
                         currentWeather = it.currentWeather,
                         temperatureUnit = it.temperatureUnit,
                         hourlyWeather = it.hourlyWeather,
+                        dailyWeather = it.dailyWeather,
                     )
                 },
                 onFailure = {

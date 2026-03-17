@@ -17,4 +17,6 @@ data class WeatherResponse(
     val currentWeather: CurrentWeatherDto?,
     @SerialName("hourly")
     val hourly: List<HourlyWeatherDto>?,
+    @SerialName("daily")
+    val daily: List<DailyWeatherDto>?,
 )

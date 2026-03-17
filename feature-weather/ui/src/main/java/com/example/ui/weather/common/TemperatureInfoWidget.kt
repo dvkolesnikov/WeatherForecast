@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.R
+import com.example.ui.weather.ext.formatTemperature
 
 @Composable
 internal fun TemperatureInfo(
@@ -30,8 +31,7 @@ internal fun TemperatureInfo(
         Text(
             text = stringResource(
                 R.string.weather_label_temperature,
-                "%.1f".format(temperature),
-                units
+                temperature.formatTemperature(units)
             ),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
@@ -49,16 +49,14 @@ internal fun TemperatureInfo(
                 TemperatureInfoFormat.FULL -> {
                     stringResource(
                         R.string.weather_label_temperature_feels_like,
-                        "%.1f".format(temperatureFeeling),
-                        units
+                        temperatureFeeling.formatTemperature(units),
                     )
                 }
 
                 TemperatureInfoFormat.COMPACT -> {
                     stringResource(
                         R.string.weather_label_temperature,
-                        "%.1f".format(temperatureFeeling),
-                        units
+                        temperatureFeeling.formatTemperature(units),
                     )
                 }
             },
