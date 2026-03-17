@@ -13,10 +13,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.domain.model.CurrentWeather
+import com.example.domain.weather.model.CurrentWeather
 import com.example.presentation_core.ext.toDateTime
 import com.example.presentation_core.theme.WeatherForecastTheme
-import com.example.ui.R
 import com.example.ui.weather.common.SolarTimeInfoWidget
 import com.example.ui.weather.common.TemperatureInfo
 

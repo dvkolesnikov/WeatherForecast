@@ -1,6 +1,6 @@
-package com.example.domain
+package com.example.domain.weather
 
-import com.example.domain.usecase.GetWeatherUseCase
+import com.example.domain.weather.usecase.GetWeatherUseCase
 import org.koin.dsl.module
 
 val featureWeatherDomainModule = module {

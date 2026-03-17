@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ui"
+    namespace = "com.example.ui.weather"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1

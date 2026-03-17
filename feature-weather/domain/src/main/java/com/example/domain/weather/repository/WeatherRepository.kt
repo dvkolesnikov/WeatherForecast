@@ -1,6 +1,6 @@
-package com.example.domain.repository
+package com.example.domain.weather.repository
 
-import com.example.domain.model.Weather
+import com.example.domain.weather.model.Weather
 
 interface WeatherRepository {
 

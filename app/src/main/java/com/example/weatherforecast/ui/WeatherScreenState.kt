@@ -1,8 +1,8 @@
 package com.example.weatherforecast.ui
 
-import com.example.domain.model.CurrentWeather
-import com.example.domain.model.DailyWeather
-import com.example.domain.model.HourlyWeather
+import com.example.domain.weather.model.CurrentWeather
+import com.example.domain.weather.model.DailyWeather
+import com.example.domain.weather.model.HourlyWeather
 
 sealed class WeatherScreenState {
     data object Loading : WeatherScreenState()

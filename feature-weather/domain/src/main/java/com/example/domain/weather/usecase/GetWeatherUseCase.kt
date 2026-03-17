@@ -1,7 +1,7 @@
-package com.example.domain.usecase
+package com.example.domain.weather.usecase
 
-import com.example.domain.model.Weather
-import com.example.domain.repository.WeatherRepository
+import com.example.domain.weather.model.Weather
+import com.example.domain.weather.repository.WeatherRepository
 
 class GetWeatherUseCase(
     private val weatherRepository: WeatherRepository,

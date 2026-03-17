@@ -1,8 +1,8 @@
-package com.example.data
+package com.example.data.weather
 
-import com.example.data.api.WeatherApi
-import com.example.data.repository.WeatherRepositoryImpl
-import com.example.domain.repository.WeatherRepository
+import com.example.data.weather.api.WeatherApi
+import com.example.data.weather.repository.WeatherRepositoryImpl
+import com.example.domain.weather.repository.WeatherRepository
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.create

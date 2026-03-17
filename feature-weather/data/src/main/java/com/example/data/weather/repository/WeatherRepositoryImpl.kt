@@ -1,9 +1,9 @@
-package com.example.data.repository
+package com.example.data.weather.repository
 
-import com.example.data.api.WeatherApi
-import com.example.data.mapper.mapToDomain
-import com.example.domain.model.Weather
-import com.example.domain.repository.WeatherRepository
+import com.example.data.weather.api.WeatherApi
+import com.example.data.weather.mapper.mapToDomain
+import com.example.domain.weather.model.Weather
+import com.example.domain.weather.repository.WeatherRepository
 import com.example.domain_core.model.AppConfig
 
 class WeatherRepositoryImpl(

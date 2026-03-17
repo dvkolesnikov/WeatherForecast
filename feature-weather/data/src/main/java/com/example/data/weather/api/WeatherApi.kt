@@ -1,6 +1,6 @@
-package com.example.data.api
+package com.example.data.weather.api
 
-import com.example.data.dto.WeatherResponse
+import com.example.data.weather.dto.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.Locale
