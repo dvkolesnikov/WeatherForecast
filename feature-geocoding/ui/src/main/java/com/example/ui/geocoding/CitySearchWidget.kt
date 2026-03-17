@@ -3,6 +3,7 @@ package com.example.ui.geocoding
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -46,7 +47,10 @@ fun CitySearchWidget(
 
             cities.isEmpty() -> SearchHintText(text = stringResource(R.string.geocoding_search_no_results))
 
-            else -> LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            else -> LazyColumn(
+                modifier = Modifier.heightIn(max = 240.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
                 items(cities) { city ->
                     CityLocationCard(
                         city = city,

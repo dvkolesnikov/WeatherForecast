@@ -1,12 +1,10 @@
 package com.example.weatherforecast.ui
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,13 +13,19 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.domain.geocoding.model.CityLocation
+import com.example.ui.geocoding.CitySearchDialog
 import com.example.ui.weather.CurrentWeatherWidget
 import com.example.ui.weather.DailyWeatherWidget
 import com.example.ui.weather.HourlyWeatherWidget
@@ -39,6 +43,8 @@ fun WeatherScreen(
     WeatherScreenContent(
         modifier = modifier,
         screenState = screenState,
+        onQueryChange = viewModel::onQueryChange,
+        onCitySelected = viewModel::onCitySelected,
     )
 }
 
@@ -46,32 +52,65 @@ fun WeatherScreen(
 private fun WeatherScreenContent(
     modifier: Modifier = Modifier,
     screenState: WeatherScreenState,
+    onQueryChange: (String) -> Unit,
+    onCitySelected: (CityLocation) -> Unit,
 ) {
+    var isCitySearchDialogVisible by rememberSaveable { mutableStateOf(false) }
+
     Scaffold(modifier = modifier) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            TextButton(onClick = { isCitySearchDialogVisible = true }) {
+                Text(text = stringResource(R.string.search_city_button_label))
+            }
 
-        when (screenState) {
-            is WeatherScreenState.Error -> ErrorContent(
-                modifier = Modifier.padding(innerPadding),
-                errorMessage = screenState.message
-            )
-
-            WeatherScreenState.Loading -> LoadingContent(
-                modifier = Modifier.padding(innerPadding),
-            )
-
-            is WeatherScreenState.Success -> SuccessContent(
-                modifier = Modifier.padding(innerPadding),
-                state = screenState,
-
+            screenState.citySearchState.selectedCity?.let { selectedCity ->
+                Text(
+                    text = stringResource(R.string.selected_city_label, selectedCity.name),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.secondary,
                 )
+            }
+
+            when (screenState) {
+                is WeatherScreenState.Error -> ErrorContent(
+                    errorMessage = screenState.message
+                )
+
+                is WeatherScreenState.Loading -> LoadingContent()
+
+                is WeatherScreenState.Success -> SuccessContent(
+                    state = screenState,
+                )
+            }
         }
+    }
+
+    if (isCitySearchDialogVisible) {
+        CitySearchDialog(
+            query = screenState.citySearchState.query,
+            cities = screenState.citySearchState.cities,
+            onQueryChange = onQueryChange,
+            onCitySelected = {
+                onCitySelected(it)
+                isCitySearchDialogVisible = false
+            },
+            onDismissRequest = {
+                isCitySearchDialogVisible = false
+            },
+        )
     }
 }
 
 @Composable
 private fun LoadingContent(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
 
@@ -85,7 +124,7 @@ private fun ErrorContent(
     errorMessage: String
 ) {
     Box(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center,
     ) {
 
@@ -99,11 +138,8 @@ private fun SuccessContent(
     state: WeatherScreenState.Success
 ) {
     Column(
-        modifier = modifier
-            .padding(16.dp)
-            .verticalScroll(
-                state = rememberScrollState(),
-            )
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         state.currentWeather?.let {
             WeatherCard(
@@ -117,7 +153,6 @@ private fun SuccessContent(
                     temperatureUnit = state.temperatureUnit,
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
         }
         state.hourlyWeather.takeIf { it.isNotEmpty() }?.let {
             WeatherCard(
@@ -129,7 +164,6 @@ private fun SuccessContent(
                     tempUnit = state.temperatureUnit,
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
         }
         state.dailyWeather.takeIf { it.isNotEmpty() }?.let {
             WeatherCard(

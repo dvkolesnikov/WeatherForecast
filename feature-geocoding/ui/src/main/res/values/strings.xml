@@ -4,4 +4,6 @@
     <string name="geocoding_search_placeholder">Type a city name</string>
     <string name="geocoding_search_empty">Start typing to search for a city</string>
     <string name="geocoding_search_no_results">No cities found</string>
+    <string name="geocoding_search_dialog_title">Search city</string>
+    <string name="geocoding_search_dialog_close">Close</string>
 </resources>

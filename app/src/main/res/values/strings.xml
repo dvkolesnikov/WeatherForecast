@@ -4,4 +4,6 @@
     <string name="weather_card_title_now">Now</string>
     <string name="weather_card_title_current_day">Next 24 hours</string>
     <string name="weather_card_title_week">Next 7 days</string>
+    <string name="selected_city_label">Selected city: %1$s</string>
+    <string name="search_city_button_label">Search city</string>
 </resources>
