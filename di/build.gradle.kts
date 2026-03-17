@@ -32,6 +32,8 @@ android {
 
 dependencies {
     implementation(project(":data-core"))
+    implementation(project(":feature-geocoding:domain"))
+    implementation(project(":feature-geocoding:data"))
     implementation(project(":feature-weather:domain"))
     implementation(project(":feature-weather:data"))
 
