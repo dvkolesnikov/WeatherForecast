@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":data-core-network"))
+    implementation(project(":data-core"))
     implementation(project(":domain-core"))
     implementation(project(":feature-weather:domain"))
 
