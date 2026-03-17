@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.ui.weather.CurrentWeatherWidget
+import com.example.ui.weather.DailyWeatherWidget
 import com.example.ui.weather.HourlyWeatherWidget
 import com.example.weatherforecast.R
 import org.koin.androidx.compose.koinViewModel
@@ -125,6 +126,18 @@ private fun SuccessContent(
             ) {
                 HourlyWeatherWidget(
                     hourlyWeatherItems = state.hourlyWeather,
+                    tempUnit = state.temperatureUnit,
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+        state.dailyWeather.takeIf { it.isNotEmpty() }?.let {
+            WeatherCard(
+                modifier = Modifier.fillMaxWidth(),
+                subTitle = stringResource(R.string.weather_card_title_week)
+            ) {
+                DailyWeatherWidget(
+                    dailyWeatherItems = state.dailyWeather,
                     tempUnit = state.temperatureUnit,
                 )
             }

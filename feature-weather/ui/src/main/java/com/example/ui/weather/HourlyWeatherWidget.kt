@@ -1,32 +1,25 @@
 package com.example.ui.weather
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.domain.model.HourlyWeather
 import com.example.presentation_core.ext.toTimeHHmm
 import com.example.presentation_core.theme.WeatherForecastTheme
-import com.example.ui.R
+import com.example.ui.weather.common.PrecipitationInfoWidget
 import com.example.ui.weather.common.TemperatureInfo
 import com.example.ui.weather.common.TemperatureInfoFormat
 import com.example.ui.weather.common.WeatherConditionIcons
-import kotlin.math.roundToInt
 
 @Composable
 fun HourlyWeatherWidget(
@@ -63,32 +56,11 @@ private fun HourlyWeatherItem(
                 format = TemperatureInfoFormat.COMPACT,
             )
             Spacer(modifier = Modifier.height(4.dp))
-            PrecipitationInfo(
+            PrecipitationInfoWidget(
                 probability = hourlyWeather.precipitationProbability,
             )
             WeatherConditionIcons(urls = hourlyWeather.weatherIconUrls)
         }
-    }
-}
-
-@Composable
-private fun PrecipitationInfo(
-    modifier: Modifier = Modifier,
-    probability: Float,
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            modifier = Modifier.size(20.dp),
-            imageVector = ImageVector.vectorResource(R.drawable.ic_precipitation),
-            contentDescription = "Precipitation icon",
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = "${(probability * 100).roundToInt()}%"
-        )
     }
 }
 

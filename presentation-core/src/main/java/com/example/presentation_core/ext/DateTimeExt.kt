@@ -10,6 +10,12 @@ fun Int.toTimeHHmm(): String {
     }
 }
 
+fun Int.toShortDate(): String {
+    return Date(this * 1000L).let {
+        SimpleDateFormat("dd MMM", Locale.current.platformLocale).format(it)
+    }
+}
+
 fun Int.toDateTime(): String {
     return Date(this * 1000L).let {
         SimpleDateFormat("dd MMM yyyy HH:mm", Locale.current.platformLocale).format(it)

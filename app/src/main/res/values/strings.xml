@@ -3,5 +3,5 @@
 
     <string name="weather_card_title_now">Now</string>
     <string name="weather_card_title_current_day">Next 24 hours</string>
-    <string name="weather_card_title_week">Next 7 day</string>
+    <string name="weather_card_title_week">Next 7 days</string>
 </resources>
