@@ -1,6 +1,6 @@
-package com.example.data.mapper
+package com.example.data.weather.mapper
 
-import com.example.data.dto.WeatherConditionDto
+import com.example.data.weather.dto.WeatherConditionDto
 
 fun WeatherConditionDto.toIconUrl(
     baseUrl: String,

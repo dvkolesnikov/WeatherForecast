@@ -1,4 +1,4 @@
-package com.example.domain.model
+package com.example.domain.weather.model
 
 data class DailyWeather(
     val timeStamp: Int,

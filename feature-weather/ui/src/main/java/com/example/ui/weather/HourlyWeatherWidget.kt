@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.domain.model.HourlyWeather
+import com.example.domain.weather.model.HourlyWeather
 import com.example.presentation_core.ext.toTimeHHmm
 import com.example.presentation_core.theme.WeatherForecastTheme
 import com.example.ui.weather.common.PrecipitationInfoWidget

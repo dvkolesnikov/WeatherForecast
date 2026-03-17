@@ -1,7 +1,7 @@
-package com.example.data.mapper
+package com.example.data.weather.mapper
 
-import com.example.data.dto.DailyWeatherDto
-import com.example.domain.model.DailyWeather
+import com.example.data.weather.dto.DailyWeatherDto
+import com.example.domain.weather.model.DailyWeather
 
 fun DailyWeatherDto.mapToDomain(baseUrl: String) = DailyWeather(
     timeStamp = timeStamp,
