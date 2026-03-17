@@ -144,7 +144,7 @@ private fun WeatherCard(
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
-                modifier = Modifier.padding(8.dp),
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
                 text = subTitle
             )
             content()
