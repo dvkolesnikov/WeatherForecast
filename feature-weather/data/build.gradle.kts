@@ -32,6 +32,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data-core-network"))
+    implementation(project(":domain-core"))
     implementation(project(":feature-weather:domain"))
 
     implementation(libs.kotlinx.serialization.json)
