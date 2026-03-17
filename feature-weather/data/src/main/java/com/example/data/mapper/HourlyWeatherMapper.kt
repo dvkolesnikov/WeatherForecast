@@ -3,7 +3,7 @@ package com.example.data.mapper
 import com.example.data.dto.HourlyWeatherDto
 import com.example.domain.model.HourlyWeather
 
-fun HourlyWeatherDto.mapToDomain(): HourlyWeather {
+fun HourlyWeatherDto.mapToDomain(baseUrl: String): HourlyWeather {
     return HourlyWeather(
         timeStamp = timeStamp,
         temperature = temperature,
@@ -18,5 +18,6 @@ fun HourlyWeatherDto.mapToDomain(): HourlyWeather {
         windDirection = windDirection,
         windGustsSpeed = windGustsSpeed,
         precipitationProbability = precipitationProbability,
+        weatherIconUrls = weatherConditions.map { it.toIconUrl(baseUrl) }
     )
 }

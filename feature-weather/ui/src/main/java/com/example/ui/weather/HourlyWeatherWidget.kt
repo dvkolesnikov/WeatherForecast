@@ -25,6 +25,7 @@ import com.example.presentation_core.theme.WeatherForecastTheme
 import com.example.ui.R
 import com.example.ui.weather.common.TemperatureInfo
 import com.example.ui.weather.common.TemperatureInfoFormat
+import com.example.ui.weather.common.WeatherConditionIcons
 import kotlin.math.roundToInt
 
 @Composable
@@ -65,6 +66,7 @@ private fun HourlyWeatherItem(
             PrecipitationInfo(
                 probability = hourlyWeather.precipitationProbability,
             )
+            WeatherConditionIcons(urls = hourlyWeather.weatherIconUrls)
         }
     }
 }
@@ -120,6 +122,7 @@ private val previewHourlyItem by lazy {
         windDirection = 180,
         windGustsSpeed = 4.5f,
         precipitationProbability = 0.159f,
+        weatherIconUrls = emptyList(),
     )
 }
 

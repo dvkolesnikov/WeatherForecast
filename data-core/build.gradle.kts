@@ -32,6 +32,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain-core"))
+
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
 

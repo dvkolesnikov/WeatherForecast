@@ -1,6 +1,7 @@
 package com.example.core_network
 
 import com.example.core_network.interceptor.AuthInterceptor
+import com.example.domain_core.model.AppConfig
 import com.skydoves.retrofit.adapters.result.ResultCallAdapterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -13,7 +14,7 @@ import retrofit2.converter.kotlinx.serialization.asConverterFactory
 val coreNetworkModule = module {
     single { provideOkHttpClient() }
     factory { provideJson() }
-    single { provideRetrofit(client = get(), json = get()) }
+    single { provideRetrofit(client = get(), json = get(), appConfig = get()) }
 }
 
 private fun provideOkHttpClient() = OkHttpClient.Builder()
@@ -29,9 +30,10 @@ private fun provideJson() = Json {
     ignoreUnknownKeys = true
 }
 
-private fun provideRetrofit(client: OkHttpClient, json: Json) = Retrofit.Builder()
+private fun provideRetrofit(client: OkHttpClient, json: Json, appConfig: AppConfig) =
+    Retrofit.Builder()
     .client(client)
-    .baseUrl("https://api.openweathermap.org") // TODO move to app config
+        .baseUrl(appConfig.apiBaseUrl)
     .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     .addCallAdapterFactory(ResultCallAdapterFactory.create())
     .build()

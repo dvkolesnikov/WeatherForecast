@@ -11,7 +11,8 @@ val featureWeatherDataModule = module {
     factory { provideWeatherApi(retrofit = get()) }
     single<WeatherRepository> {
         WeatherRepositoryImpl(
-            weatherApi = get()
+            weatherApi = get(),
+            appConfig = get(),
         )
     }
 }

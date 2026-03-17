@@ -4,9 +4,11 @@ import com.example.data.api.WeatherApi
 import com.example.data.mapper.mapToDomain
 import com.example.domain.model.Weather
 import com.example.domain.repository.WeatherRepository
+import com.example.domain_core.model.AppConfig
 
 class WeatherRepositoryImpl(
     private val weatherApi: WeatherApi,
+    private val appConfig: AppConfig,
 ) : WeatherRepository {
 
     override suspend fun loadWeather(
@@ -16,6 +18,6 @@ class WeatherRepositoryImpl(
         return weatherApi.loadWeather(
             latitude = latitude,
             longitude = longitude,
-        ).map { it.mapToDomain() }
+        ).map { it.mapToDomain(baseUrl = appConfig.imagesBaseUrl) }
     }
 }
