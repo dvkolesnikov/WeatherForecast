@@ -28,7 +28,7 @@ data class HourlyWeatherDto(
     @SerialName("wind_deg")
     val windDirection: Int,
     @SerialName("wind_gust")
-    val windGustsSpeed: Float,
+    val windGustsSpeed: Float?,
     @SerialName("weather")
     val weatherConditions: List<WeatherConditionDto>,
     @SerialName("pop") // Probability of precipitation. The values of the parameter vary between 0 and 1, where 0 is equal to 0%, 1 is equal to 100%
