@@ -7,5 +7,5 @@ data class Weather(
     val hourlyWeather: List<HourlyWeather>,
     val dailyWeather: List<DailyWeather>,
     val timeZone: ZoneId,
-    val temperatureUnit: String = "°C" // TODO it will be probably changed later,
+    val temperatureUnit: String = "°C" // TODO Replace if metric/imperial system switch added,
 )
