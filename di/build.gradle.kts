@@ -31,6 +31,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain-core"))
     implementation(project(":data-core"))
     implementation(project(":feature-geocoding:domain"))
     implementation(project(":feature-geocoding:data"))

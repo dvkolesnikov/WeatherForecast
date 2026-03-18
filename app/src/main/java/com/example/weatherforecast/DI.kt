@@ -18,7 +18,9 @@ val viewModelModule = module {
     viewModel {
         WeatherViewModel(
             getWeatherUseCase = get(),
-            searchCityUseCase = get(),
+            searchCitiesByNameUseCase = get(),
+            searchCityNameByCoordinatesUseCase = get(),
+            getCurrentLocationUseCase = get(),
         )
     }
 }

@@ -9,12 +9,24 @@ class GeocodingRepositoryImpl(
     private val geocodingApi: GeocodingApi,
 ) : GeocodingRepository {
 
-    override suspend fun searchCities(
+    override suspend fun searchCitiesByName(
         query: String,
         limit: Int,
     ): Result<List<CityLocation>> {
-        return geocodingApi.searchCities(
+        return geocodingApi.searchCitiesByName(
             query = query,
+            limit = limit,
+        ).map { cities -> cities.map { it.mapToDomain() } }
+    }
+
+    override suspend fun searchCitiesByCoordinates(
+        latitude: Double,
+        longitude: Double,
+        limit: Int
+    ): Result<List<CityLocation>> {
+        return geocodingApi.searchCityByCoordinates(
+            lat = latitude,
+            lon = longitude,
             limit = limit,
         ).map { cities -> cities.map { it.mapToDomain() } }
     }
