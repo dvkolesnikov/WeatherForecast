@@ -12,7 +12,7 @@ data class HourlyWeather(
     val visibilityDistance: Int,
     val windSpeed: Float,
     val windDirection: Int,
-    val windGustsSpeed: Float,
+    val windGustsSpeed: Float?,
     val precipitationProbability: Float,
     val weatherIconUrls: List<String>,
 )

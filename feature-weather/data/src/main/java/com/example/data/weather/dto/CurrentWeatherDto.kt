@@ -32,7 +32,7 @@ data class CurrentWeatherDto(
     @SerialName("wind_deg")
     val windDirection: Int,
     @SerialName("wind_gust")
-    val windGustsSpeed: Float,
+    val windGustsSpeed: Float?,
     @SerialName("weather")
     val weatherConditions: List<WeatherConditionDto>
 )
