@@ -1,5 +1,6 @@
 package com.example.weatherforecast.ui
 
+import com.example.domain.geocoding.model.CityLocation
 import com.example.domain.weather.model.CurrentWeather
 import com.example.domain.weather.model.DailyWeather
 import com.example.domain.weather.model.HourlyWeather
@@ -24,3 +25,10 @@ sealed class WeatherScreenState(
         override val citySearchState: CitySearchState = CitySearchState(),
     ) : WeatherScreenState(citySearchState)
 }
+
+data class CitySearchState(
+    val query: String = "",
+    val cities: List<CityLocation> = emptyList(),
+    val selectedCity: CityLocation? = null,
+)
+

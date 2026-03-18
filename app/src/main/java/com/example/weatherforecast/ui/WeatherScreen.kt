@@ -1,20 +1,31 @@
 package com.example.weatherforecast.ui
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.MyLocation
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,11 +36,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.domain.geocoding.model.CityLocation
+import com.example.domain.weather.model.CurrentWeather
+import com.example.domain.weather.model.DailyWeather
+import com.example.domain.weather.model.HourlyWeather
+import com.example.presentation_core.theme.WeatherForecastTheme
 import com.example.ui.geocoding.CitySearchDialog
 import com.example.ui.weather.CurrentWeatherWidget
 import com.example.ui.weather.DailyWeatherWidget
 import com.example.ui.weather.HourlyWeatherWidget
 import com.example.weatherforecast.R
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -40,11 +57,31 @@ fun WeatherScreen(
 
     val screenState by viewModel.screenState.collectAsState()
 
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            viewModel.handleLocationPermissionGranted()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.screenEvents.onEach {
+            when (it) {
+                WeatherScreenEvent.RequestLocationPermission -> {
+                    // TODO show permission rationale dialog if rejected
+                    launcher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+                }
+            }
+        }.launchIn(this)
+    }
+
     WeatherScreenContent(
         modifier = modifier,
         screenState = screenState,
         onQueryChange = viewModel::onQueryChange,
         onCitySelected = viewModel::onCitySelected,
+        onCurrentLocationClicked = viewModel::handleCurrentLocationClicked,
     )
 }
 
@@ -54,6 +91,7 @@ private fun WeatherScreenContent(
     screenState: WeatherScreenState,
     onQueryChange: (String) -> Unit,
     onCitySelected: (CityLocation) -> Unit,
+    onCurrentLocationClicked: () -> Unit,
 ) {
     var isCitySearchDialogVisible by rememberSaveable { mutableStateOf(false) }
 
@@ -65,8 +103,20 @@ private fun WeatherScreenContent(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            TextButton(onClick = { isCitySearchDialogVisible = true }) {
-                Text(text = stringResource(R.string.search_city_button_label))
+
+            Row {
+                TextButton(onClick = { isCitySearchDialogVisible = true }) {
+                    Text(text = stringResource(R.string.search_city_button_label))
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                IconButton(onClick = onCurrentLocationClicked) {
+                    Icon(
+                        imageVector = Icons.Outlined.MyLocation,
+                        contentDescription = null,
+                    )
+                }
             }
 
             screenState.citySearchState.selectedCity?.let { selectedCity ->

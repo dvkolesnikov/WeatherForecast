@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.retrofit.adapters.result)
     implementation(libs.converter.kotlinx.serialization)
 
+    implementation(libs.play.services.location)
+
     implementation(libs.koin.android)
     testImplementation(libs.junit)
 }
