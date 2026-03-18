@@ -34,6 +34,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.datasource.CollectionPreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.example.domain.geocoding.model.CityLocation
 import com.example.domain.weather.model.CurrentWeather
@@ -48,6 +51,7 @@ import com.example.weatherforecast.R
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.compose.koinViewModel
+import java.time.ZoneId
 
 @Composable
 fun WeatherScreen(
@@ -251,3 +255,70 @@ private fun WeatherCard(
         }
     }
 }
+
+@Preview
+@Composable
+private fun WeatherScreenContentPreview(
+    @PreviewParameter(WeatherScreenPreviewParameter::class) state: WeatherScreenState,
+) {
+    WeatherForecastTheme {
+        WeatherScreenContent(
+            screenState = state,
+            onCurrentLocationClicked = {},
+            onQueryChange = {},
+            onCitySelected = {},
+        )
+    }
+}
+
+private class WeatherScreenPreviewParameter :
+    CollectionPreviewParameterProvider<WeatherScreenState>(
+        listOf(
+            WeatherScreenState.Loading(),
+            WeatherScreenState.Error(message = "Failed to load weather"),
+            WeatherScreenState.Success(
+                currentWeather = CurrentWeather(
+                    timeStamp = (System.currentTimeMillis() / 1000).toInt(),
+                    temperature = 15.5f,
+                    sunsetTimeStamp = (System.currentTimeMillis() / 1000).toInt(),
+                    sunriseTimeStamp = (System.currentTimeMillis() / 1000).toInt(),
+                    temperatureFeelsLike = 13.3f,
+                    pressure = 750,
+                    humidity = 45,
+                    windSpeed = 3.4f,
+                    weatherIconUrls = emptyList(),
+                ),
+                temperatureUnit = "°C",
+                hourlyWeather = listOf(
+                    HourlyWeather(
+                        timeStamp = (System.currentTimeMillis() / 1000).toInt(),
+                        temperature = 19.5f,
+                        temperatureFeelsLike = 17.9f,
+                        pressure = 1010,
+                        humidity = 45,
+                        dewPointTemperature = 14f,
+                        uvIndex = 1.5f,
+                        cloudinessPercentage = 23,
+                        visibilityDistance = 10000,
+                        windSpeed = 3.5f,
+                        windDirection = 180,
+                        windGustsSpeed = 4.5f,
+                        precipitationProbability = 0.159f,
+                        weatherIconUrls = emptyList(),
+                    )
+                ),
+                dailyWeather = listOf(
+                    DailyWeather(
+                        timeStamp = (System.currentTimeMillis() / 1000).toInt(),
+                        precipitationProbability = 0.159f,
+                        weatherIconUrls = emptyList(),
+                        sunriseTimeStamp = (System.currentTimeMillis() / 1000).toInt(),
+                        sunsetTimeStamp = (System.currentTimeMillis() / 1000).toInt(),
+                        minTemperature = -35.5f,
+                        maxTemperature = 49.9f,
+                    )
+                ),
+                timeZone = ZoneId.systemDefault(),
+            )
+        )
+    )
