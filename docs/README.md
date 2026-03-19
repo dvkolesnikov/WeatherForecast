@@ -46,3 +46,9 @@ Following points are nice-to-have, but they are not included into the app becaus
 1. Error handling. Currently, the app displays raw error messages. Instead, app-specific exceptions must be added.
 2. Store selected city in a persistent storage to improve UX.
 3. Show Location permission rationale if the user rejected it. 
+
+## AI Tools
+
+**Cursor** has been used for coding some parts, those commits are explicitly marked by `[AI]` prefix in commit messages.
+
+The rest of changes are done without using AI tools.
