@@ -201,6 +201,7 @@ private fun SuccessContent(
                     modifier = Modifier.padding(vertical = 8.dp),
                     currentWeather = state.currentWeather,
                     temperatureUnit = state.temperatureUnit,
+                    timeZone = state.timeZone,
                 )
             }
         }
@@ -212,6 +213,7 @@ private fun SuccessContent(
                 HourlyWeatherWidget(
                     hourlyWeatherItems = state.hourlyWeather,
                     tempUnit = state.temperatureUnit,
+                    timeZone = state.timeZone,
                 )
             }
         }
@@ -223,6 +225,7 @@ private fun SuccessContent(
                 DailyWeatherWidget(
                     dailyWeatherItems = state.dailyWeather,
                     tempUnit = state.temperatureUnit,
+                    timeZone = state.timeZone,
                 )
             }
         }

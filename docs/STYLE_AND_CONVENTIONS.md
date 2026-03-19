@@ -12,7 +12,7 @@
 ## Android & Gradle
 
 - **compileSdk**: use the same pattern as existing modules (e.g. `version = release(36) { minorApiLevel = 1 }`).
-- **minSdk**: 24; **targetSdk**: 36; **JVM**: 11.
+- **minSdk**: 26; **targetSdk**: 36; **JVM**: 11.
 - **Namespace**: one per module; matches package structure (e.g. `com.example.core_network`, `com.example.ui`).
 - Dependencies: use **version catalog** in `gradle/libs.versions.toml`; reference as `libs.xxx` in `build.gradle.kts`. Add new libraries and versions there first.
 

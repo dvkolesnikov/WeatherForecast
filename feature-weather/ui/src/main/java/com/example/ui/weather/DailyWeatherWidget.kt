@@ -22,12 +22,14 @@ import com.example.ui.weather.common.PrecipitationInfoWidget
 import com.example.ui.weather.common.SolarTimeInfoWidget
 import com.example.ui.weather.common.WeatherConditionIcon
 import com.example.ui.weather.ext.formatTemperature
+import java.time.ZoneId
 
 @Composable
 fun DailyWeatherWidget(
     modifier: Modifier = Modifier,
     dailyWeatherItems: List<DailyWeather>,
     tempUnit: String,
+    timeZone: ZoneId,
 ) {
     Column(
         modifier = modifier,
@@ -36,6 +38,7 @@ fun DailyWeatherWidget(
             DailyWeatherItem(
                 dailyWeather = it,
                 tempUnit = tempUnit,
+                timeZone = timeZone,
             )
         }
     }
@@ -46,6 +49,7 @@ private fun DailyWeatherItem(
     modifier: Modifier = Modifier,
     dailyWeather: DailyWeather,
     tempUnit: String,
+    timeZone: ZoneId,
 ) {
     Card(
         modifier = modifier
@@ -57,7 +61,7 @@ private fun DailyWeatherItem(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(text = dailyWeather.timeStamp.toShortDate())
+                Text(text = dailyWeather.timeStamp.toShortDate(timeZone))
                 dailyWeather.weatherIconUrls.forEach {
                     Spacer(modifier = Modifier.padding(start = 8.dp))
                     WeatherConditionIcon(url = it)
@@ -70,11 +74,13 @@ private fun DailyWeatherItem(
             ) {
                 SolarTimeInfoWidget(
                     timeStamp = dailyWeather.sunriseTimeStamp,
-                    icon = painterResource(R.drawable.ic_sunrise)
+                    icon = painterResource(R.drawable.ic_sunrise),
+                    timeZone = timeZone,
                 )
                 SolarTimeInfoWidget(
                     timeStamp = dailyWeather.sunsetTimeStamp,
-                    icon = painterResource(R.drawable.ic_sunset)
+                    icon = painterResource(R.drawable.ic_sunset),
+                    timeZone = timeZone,
                 )
                 Text(
                     text = stringResource(
@@ -101,7 +107,8 @@ private fun DailyWeatherWidgetPreview() {
                 previewDailyItem.copy(minTemperature = -14.4f),
                 previewDailyItem.copy(maxTemperature = 11.1f)
             ),
-            tempUnit = "°C"
+            tempUnit = "°C",
+            timeZone = ZoneId.systemDefault(),
         )
     }
 }

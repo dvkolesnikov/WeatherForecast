@@ -20,18 +20,20 @@ import com.example.ui.weather.common.PrecipitationInfoWidget
 import com.example.ui.weather.common.TemperatureInfo
 import com.example.ui.weather.common.TemperatureInfoFormat
 import com.example.ui.weather.common.WeatherConditionIcons
+import java.time.ZoneId
 
 @Composable
 fun HourlyWeatherWidget(
     modifier: Modifier = Modifier,
     hourlyWeatherItems: List<HourlyWeather>,
     tempUnit: String,
+    timeZone: ZoneId,
 ) {
     LazyRow(
         modifier = modifier,
     ) {
         items(hourlyWeatherItems) { item ->
-            HourlyWeatherItem(hourlyWeather = item, tempUnit = tempUnit)
+            HourlyWeatherItem(hourlyWeather = item, tempUnit = tempUnit, timeZone = timeZone)
         }
     }
 
@@ -42,13 +44,14 @@ private fun HourlyWeatherItem(
     modifier: Modifier = Modifier,
     hourlyWeather: HourlyWeather,
     tempUnit: String,
+    timeZone: ZoneId,
 ) {
     Card(modifier = modifier.padding(8.dp)) {
         Column(
             modifier = Modifier.padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(text = hourlyWeather.timeStamp.toTimeHHmm())
+            Text(text = hourlyWeather.timeStamp.toTimeHHmm(timeZone))
             TemperatureInfo(
                 temperature = hourlyWeather.temperature,
                 temperatureFeeling = hourlyWeather.temperatureFeelsLike,
@@ -74,7 +77,8 @@ private fun HourlyWeatherWidgetPreview() {
                 previewHourlyItem.copy(temperature = -14.4f),
                 previewHourlyItem.copy(temperatureFeelsLike = 11.1f)
             ),
-            tempUnit = "°C"
+            tempUnit = "°C",
+            timeZone = ZoneId.systemDefault(),
         )
     }
 }
