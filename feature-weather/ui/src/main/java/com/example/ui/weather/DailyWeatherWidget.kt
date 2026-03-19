@@ -66,6 +66,10 @@ private fun DailyWeatherItem(
                     Spacer(modifier = Modifier.padding(start = 8.dp))
                     WeatherConditionIcon(url = it)
                 }
+                Spacer(modifier = Modifier.padding(start = 8.dp))
+                PrecipitationInfoWidget(
+                    probability = dailyWeather.precipitationProbability,
+                )
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -88,9 +92,6 @@ private fun DailyWeatherItem(
                         dailyWeather.minTemperature.formatTemperature(tempUnit),
                         dailyWeather.maxTemperature.formatTemperature(tempUnit)
                     )
-                )
-                PrecipitationInfoWidget(
-                    probability = dailyWeather.precipitationProbability,
                 )
             }
         }
