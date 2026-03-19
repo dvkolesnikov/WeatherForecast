@@ -16,11 +16,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.presentation_core.ext.toTimeHHmm
+import java.time.ZoneId
 
 @Composable
 fun SolarTimeInfoWidget(
     modifier: Modifier = Modifier,
     timeStamp: Int,
+    timeZone: ZoneId,
     icon: Painter,
 ) {
     Row(
@@ -36,7 +38,7 @@ fun SolarTimeInfoWidget(
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = timeStamp.toTimeHHmm(),
+            text = timeStamp.toTimeHHmm(timeZone),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyLarge,
         )

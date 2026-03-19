@@ -18,19 +18,22 @@ import com.example.presentation_core.ext.toDateTime
 import com.example.presentation_core.theme.WeatherForecastTheme
 import com.example.ui.weather.common.SolarTimeInfoWidget
 import com.example.ui.weather.common.TemperatureInfo
+import java.time.ZoneId
 
 @Composable
 fun CurrentWeatherWidget(
     modifier: Modifier = Modifier,
     currentWeather: CurrentWeather,
     temperatureUnit: String,
+    timeZone: ZoneId,
 ) {
     Column(modifier = modifier) {
-        CurrentTimeInfo(timeStamp = currentWeather.timeStamp)
+        CurrentTimeInfo(timeStamp = currentWeather.timeStamp, timeZone = timeZone)
         SunriseSunsetRow(
             modifier = Modifier.fillMaxWidth(),
             sunsetTimeStamp = currentWeather.sunsetTimeStamp,
             sunriseTimeStamp = currentWeather.sunriseTimeStamp,
+            timeZone = timeZone,
         )
         TemperatureInfo(
             modifier = Modifier.fillMaxWidth(),
@@ -46,6 +49,7 @@ private fun SunriseSunsetRow(
     modifier: Modifier = Modifier,
     sunsetTimeStamp: Int,
     sunriseTimeStamp: Int,
+    timeZone: ZoneId,
 ) {
     Row(
         modifier = modifier.height(48.dp),
@@ -54,11 +58,13 @@ private fun SunriseSunsetRow(
         SolarTimeInfoWidget(
             modifier = Modifier.weight(1f),
             timeStamp = sunriseTimeStamp,
+            timeZone = timeZone,
             icon = painterResource(R.drawable.ic_sunrise)
         )
         SolarTimeInfoWidget(
             modifier = Modifier.weight(1f),
             timeStamp = sunsetTimeStamp,
+            timeZone = timeZone,
             icon = painterResource(R.drawable.ic_sunset)
         )
     }
@@ -68,10 +74,11 @@ private fun SunriseSunsetRow(
 private fun CurrentTimeInfo(
     modifier: Modifier = Modifier,
     timeStamp: Int,
+    timeZone: ZoneId,
 ) {
     Text(
         modifier = modifier.fillMaxWidth(),
-        text = timeStamp.toDateTime(),
+        text = timeStamp.toDateTime(timeZone),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.secondary,
@@ -96,6 +103,7 @@ private fun CurrentWeatherWidgetPreview() {
                 weatherIconUrls = emptyList(),
             ),
             temperatureUnit = "°C",
+            timeZone = ZoneId.systemDefault(),
         )
     }
 }

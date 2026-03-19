@@ -128,6 +128,7 @@ class WeatherViewModel(
                         hourlyWeather = it.hourlyWeather,
                         dailyWeather = it.dailyWeather,
                         citySearchState = citySearchState,
+                        timeZone = it.timeZone,
                     )
                 },
                 onFailure = {
